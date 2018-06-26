@@ -1,0 +1,7 @@
+#titulo {font-family: initial; font-size: 10px; font-weight: bold; text-align: center; }
+#imagem { background-image: url("fotos/mesa.jpg") ; }
+#title {color: #9f191f; font-family: initial; font-size: 50px; align-content: center; }          
+
+#img { float: left;  width: 720px;
+       height: 540px;}
+#t { float: left;}

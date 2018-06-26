@@ -1,0 +1,7 @@
+#titulo {font-family: inherit; font-size: 30px;  }
+#imagem { background-image: url("fotos/mesa.jpg") ; }
+#title {color: #720e9e; font-family: Edwardian Script ITC; font-weight: 525; font-size: 70px; text-align: center;   margin-top: 30px;
+    margin-left: 200px; }          
+
+#img { float: left; margin-left: 45px;}
+#t { float: left;}
