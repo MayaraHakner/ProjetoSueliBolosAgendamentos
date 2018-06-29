@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controle;
+package Controles;
 
-import DAOs.DAOUnMedida;
-import Entidades.UnMedida;
+import DAOs.DAOStatus;
+import Entidades.Status;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mayara Hakner
  */
-@WebServlet(name = "UnidadeMedidaServelet", urlPatterns = {"/UnidadeMedida2"})
-public class UnidadeMedidaServelet extends HttpServlet {
+@WebServlet(name = "StatusServelet", urlPatterns = {"/Status"})
+public class StatusServelet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,21 +37,20 @@ public class UnidadeMedidaServelet extends HttpServlet {
             throws ServletException, IOException { // comunica com o banco
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            System.out.println("oi");
             /* TODO output your page here. You may use following sample code. */
-            DAOUnMedida daoUnMedida = new DAOUnMedida();
-            List<UnMedida> lista = daoUnMedida.listInOrderId();
+            DAOStatus daoStatus = new DAOStatus();
+            List<Status> lista = daoStatus.listInOrderId();
             String tabela = "";
-            for (UnMedida p : lista) {
+            for (Status p : lista) {
                 tabela += "<tr>"
-                        + "<td>" + p.getNomeUnidadeMedida() + "</td>"
-                        + "<td>" + p.getNomeUnidadeMedida() + "</td>"
+                        + "<td>" + p.getIdStatus()+ "</td>"
+                        + "<td>" + p.getNomeStatus() + "</td>"
                         + "</tr>";
                 //System.out.println(tabela);
             }
             request.getSession().setAttribute("resultado", tabela);
             
-            response.sendRedirect(request.getContextPath() + "/pages/tabelaUnidadeDeMedida.jsp");
+            response.sendRedirect(request.getContextPath() + "/pages/tabelaStatus.jsp");
         }
     }
 
@@ -67,9 +66,7 @@ public class UnidadeMedidaServelet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("oi2");
         processRequest(request, response);
-        System.out.println("oi3");
     }
 
     /**

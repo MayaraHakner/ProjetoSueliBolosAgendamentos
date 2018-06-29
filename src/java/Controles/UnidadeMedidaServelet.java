@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controle;
+package Controles;
 
-import DAOs.DAOFuncionario;
-import Entidades.Funcionario;
+import DAOs.DAOUnMedida;
+import Entidades.UnMedida;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mayara Hakner
  */
-@WebServlet(name = "FuncionarioServelet", urlPatterns = {"/Funcionario"})
-public class FuncionarioServelet extends HttpServlet {
+@WebServlet(name = "UnidadeMedidaServelet", urlPatterns = {"/UnidadeMedida2"})
+public class UnidadeMedidaServelet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,32 +36,25 @@ public class FuncionarioServelet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            DAOFuncionario daoFuncionario = new DAOFuncionario();
-            List<Funcionario> lista = daoFuncionario.listInOrderId();
+            DAOUnMedida daoUnMedida = new DAOUnMedida();
+            List<UnMedida> lista = daoUnMedida.listInOrderId();
             String tabela = "";
-            for (Funcionario p : lista) {
+            for (UnMedida p : lista) {
                 tabela += "<tr>"
-                        + "<td>" + p.getIdFuncionario()+ "</td>"
-                        + "<td>" + p.getNomeFuncionario()+ "</td>"
-                        + "<td>" + p.getTelefoneFuncionario()+ "</td>"
-                        + "<td>" + sdf.format(p.getDataNascFuncionario())+ "</td>"
-                        + "<td>" + p.getEndereçoFuncionario()+ "</td>"
-                        + "<td>" + p.getStatusIdStatus().getNomeStatus()+ "</td>"
-                        + "<td>" + "<img src="+ p.getFotoFuncionario()+ ">"+"</td>"                        
+                        + "<td>" + p.getNomeUnidadeMedida() + "</td>"
+                        + "<td>" + p.getNomeUnidadeMedida() + "</td>"
                         + "</tr>";
                 //System.out.println(tabela);
             }
-
             request.getSession().setAttribute("resultado", tabela);
             
-            response.sendRedirect(request.getContextPath() + "/pages/tabelaFuncionario.jsp");
+            response.sendRedirect(request.getContextPath() + "/pages/tabelaUnidadeDeMedida.jsp");
         }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP <code>GET/</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -72,7 +64,9 @@ public class FuncionarioServelet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("oi2");
         processRequest(request, response);
+        System.out.println("oi3");
     }
 
     /**

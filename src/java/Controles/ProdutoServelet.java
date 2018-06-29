@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controle;
+package Controles;
 
-import DAOs.DAOStatus;
-import Entidades.Status;
+import DAOs.DAOProduto;
+import Entidades.Produto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mayara Hakner
  */
-@WebServlet(name = "StatusServelet", urlPatterns = {"/Status"})
-public class StatusServelet extends HttpServlet {
+@WebServlet(name = "ProdutoServelet", urlPatterns = {"/Produto"})
+public class ProdutoServelet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,19 +38,23 @@ public class StatusServelet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            DAOStatus daoStatus = new DAOStatus();
-            List<Status> lista = daoStatus.listInOrderId();
+            DAOProduto daoProduto = new DAOProduto();
+            
+            List<Produto> lista = daoProduto.listInOrderId();
             String tabela = "";
-            for (Status p : lista) {
+            for (Produto p : lista) {
                 tabela += "<tr>"
-                        + "<td>" + p.getIdStatus()+ "</td>"
-                        + "<td>" + p.getNomeStatus() + "</td>"
+                        + "<td>" + p.getIdProduto()+ "</td>"
+                        + "<td>" + p.getNomeProduto()+ "</td>"
+                        + "<td>" + p.getPrecoProdutoList()+ "</td>"
+                        + "<td>" + p.getSaborIdSabor().getNomeSabor()+ "</td>"
+                        + "<td>" + p.getUnMedidaIdUnMedida().getNomeUnidadeMedida()+ "</td>"
                         + "</tr>";
                 //System.out.println(tabela);
             }
             request.getSession().setAttribute("resultado", tabela);
             
-            response.sendRedirect(request.getContextPath() + "/pages/tabelaStatus.jsp");
+            response.sendRedirect(request.getContextPath() + "/pages/tabelaProduto.jsp");
         }
     }
 

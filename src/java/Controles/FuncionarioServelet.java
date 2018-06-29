@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controle;
+package Controles;
 
-import DAOs.DAOProduto;
-import Entidades.Produto;
+import DAOs.DAOFuncionario;
+import Entidades.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mayara Hakner
  */
-@WebServlet(name = "ProdutoServelet", urlPatterns = {"/Produto"})
-public class ProdutoServelet extends HttpServlet {
+@WebServlet(name = "FuncionarioServelet", urlPatterns = {"/Funcionario"})
+public class FuncionarioServelet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,23 +37,26 @@ public class ProdutoServelet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            DAOProduto daoProduto = new DAOProduto();
-            
-            List<Produto> lista = daoProduto.listInOrderId();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            DAOFuncionario daoFuncionario = new DAOFuncionario();
+            List<Funcionario> lista = daoFuncionario.listInOrderId();
             String tabela = "";
-            for (Produto p : lista) {
+            for (Funcionario p : lista) {
                 tabela += "<tr>"
-                        + "<td>" + p.getIdProduto()+ "</td>"
-                        + "<td>" + p.getNomeProduto()+ "</td>"
-                        + "<td>" + p.getPrecoProdutoList()+ "</td>"
-                        + "<td>" + p.getSaborIdSabor().getNomeSabor()+ "</td>"
-                        + "<td>" + p.getUnMedidaIdUnMedida().getNomeUnidadeMedida()+ "</td>"
+                        + "<td>" + p.getIdFuncionario()+ "</td>"
+                        + "<td>" + p.getNomeFuncionario()+ "</td>"
+                        + "<td>" + p.getTelefoneFuncionario()+ "</td>"
+                        + "<td>" + sdf.format(p.getDataNascFuncionario())+ "</td>"
+                        + "<td>" + p.getEndereçoFuncionario()+ "</td>"
+                        + "<td>" + p.getStatusIdStatus().getNomeStatus()+ "</td>"
+                        + "<td>" + "<img src="+ p.getFotoFuncionario()+ ">"+"</td>"                        
                         + "</tr>";
                 //System.out.println(tabela);
             }
+
             request.getSession().setAttribute("resultado", tabela);
             
-            response.sendRedirect(request.getContextPath() + "/pages/tabelaProduto.jsp");
+            response.sendRedirect(request.getContextPath() + "/pages/tabelaFuncionario.jsp");
         }
     }
 
