@@ -6,7 +6,9 @@ import java.util.List;
 
 public class DAOUnMedida extends DAOGenerico<UnMedida> {
 
-private List<UnMedida> lista = new ArrayList<>();    public DAOUnMedida(){
+    private List<UnMedida> lista = new ArrayList<>();
+
+    public DAOUnMedida() {
         super(UnMedida.class);
     }
 
@@ -20,11 +22,11 @@ private List<UnMedida> lista = new ArrayList<>();    public DAOUnMedida(){
     }
 
     public List<UnMedida> listByNome(String nome) {
-        return em.createQuery("SELECT e FROM UnMedida e WHERE e.idUnMedida) LIKE :nome").setParameter("nome", "%" + nome + "%").getResultList();
+        return em.createQuery("SELECT e FROM UnMedida e WHERE e.nomeUnMedida LIKE nome").setParameter("nome", "%" + nome + "%").getResultList();
     }
 
     public List<UnMedida> listById(int id) {
-        return em.createQuery("SELECT e FROM UnMedida + e WHERE e.dataCadastro= :id").setParameter("id", id).getResultList();
+        return em.createQuery("SELECT e FROM UnMedida e WHERE e.idUnMedida = id").setParameter("id", id).getResultList();
     }
 
     public List<UnMedida> listInOrderNome() {
@@ -50,11 +52,11 @@ private List<UnMedida> lista = new ArrayList<>();    public DAOUnMedida(){
         return ls;
     }
 
-
-public static void main(String[] args) {
+    public static void main(String[] args) {
         DAOUnMedida daoUnMedida = new DAOUnMedida();
         List<UnMedida> listaUnMedida = daoUnMedida.list();
         for (UnMedida produto : listaUnMedida) {
-            System.out.println(produto.getIdUnMedida()+"-"+produto.getNomeUnidadeMedida());
+            System.out.println(produto.getIdUnMedida() + "-" + produto.getNomeUnidadeMedida());
         }
-    }}
+    }
+}

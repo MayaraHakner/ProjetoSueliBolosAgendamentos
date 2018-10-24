@@ -11,7 +11,7 @@ private List<Produto> lista = new ArrayList<>();    public DAOProduto(){
     }
 
     public int autoIdProduto() {
-        Integer a = (Integer) em.createQuery("SELECT MAX(e.idProduto) FROM Produto) e ").getSingleResult();
+        Integer a = (Integer) em.createQuery("SELECT MAX(e.idProduto) FROM Produto e ").getSingleResult();
         if (a != null) {
             return a + 1;
         } else {
@@ -20,15 +20,15 @@ private List<Produto> lista = new ArrayList<>();    public DAOProduto(){
     }
 
     public List<Produto> listByNome(String nome) {
-        return em.createQuery("SELECT e FROM Produto e WHERE e.idProduto) LIKE :nome").setParameter("nome", "%" + nome + "%").getResultList();
+        return em.createQuery("SELECT e FROM Produto e WHERE e.nomeProduto LIKE :nome").setParameter("nome", "%" + nome + "%").getResultList();
     }
 
     public List<Produto> listById(int id) {
-        return em.createQuery("SELECT e FROM Produto + e WHERE e.dataCadastro= :id").setParameter("id", id).getResultList();
+        return em.createQuery("SELECT e FROM Produto e WHERE e.idProduto= id").setParameter("id", id).getResultList();
     }
 
     public List<Produto> listInOrderNome() {
-        return em.createQuery("SELECT e FROM Produto e ORDER BY e.dataCadastro").getResultList();
+        return em.createQuery("SELECT e FROM Produto e ORDER BY e.nomeProduto").getResultList();
     }
 
     public List<Produto> listInOrderId() {

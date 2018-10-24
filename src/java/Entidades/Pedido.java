@@ -46,7 +46,7 @@ public class Pedido implements Serializable {
     @Column(name = "horario_entrega")
     private String horarioEntrega;
     @Column(name = "enterga_vem_buscar")
-    private Short entergaVemBuscar;
+    private Boolean entergaVemBuscar;
     @Column(name = "endereco_entrega")
     private String enderecoEntrega;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -94,11 +94,11 @@ public class Pedido implements Serializable {
         this.horarioEntrega = horarioEntrega;
     }
 
-    public Short getEntergaVemBuscar() {
+    public Boolean getEntergaVemBuscar() {
         return entergaVemBuscar;
     }
 
-    public void setEntergaVemBuscar(Short entergaVemBuscar) {
+    public void setEntergaVemBuscar(Boolean entergaVemBuscar) {
         this.entergaVemBuscar = entergaVemBuscar;
     }
 

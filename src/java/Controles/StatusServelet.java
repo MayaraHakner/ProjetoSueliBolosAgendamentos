@@ -36,22 +36,50 @@ public class StatusServelet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) // prcoessaa a requisição http
             throws ServletException, IOException { // comunica com o banco
         response.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             DAOStatus daoStatus = new DAOStatus();
-            List<Status> lista = daoStatus.listInOrderId();
+            Status status = new Status();
             String tabela = "";
-            for (Status p : lista) {
-                tabela += "<tr>"
-                        + "<td>" + p.getIdStatus()+ "</td>"
-                        + "<td>" + p.getNomeStatus() + "</td>"
-                        + "</tr>";
-                //System.out.println(tabela);
+
+            //  if (request.getParameter("idStatus") == "" || request.getParameter("idStatus") == null) {
+            if (request.getParameter("idStatus").equals("") || request.getParameter("idStatus") == null) {
+                List<Status> lista = daoStatus.listInOrderId();
+                for (Status p : lista) {
+                    tabela += "<tr>"
+                            + "<td>" + p.getIdStatus() + "</td>"
+                            + "<td>" + p.getNomeStatus() + "</td>"
+                            + "</tr>";
+                    //System.out.println(tabela);
+                }
+            } else {
+                Integer id = Integer.valueOf(request.getParameter("idStatus"));
+                String nome = request.getParameter("nomeStatus");
+                inserir(id, nome);
+                List<Status> lista = daoStatus.listInOrderId();
+                for (Status p : lista) {
+                    tabela += "<tr>"
+                            + "<td>" + p.getIdStatus() + "</td>"
+                            + "<td>" + p.getNomeStatus() + "</td>"
+                            + "</tr>";
+                    //System.out.println(tabela);
+                }
+                nome = "";
             }
             request.getSession().setAttribute("resultado", tabela);
-            
+
             response.sendRedirect(request.getContextPath() + "/pages/tabelaStatus.jsp");
+            //id ="";
+//            nome = "";
         }
+    }
+
+    protected void inserir(int id, String nome) {
+        DAOStatus daoStatus = new DAOStatus();
+        Status status = new Status();
+        status.setIdStatus(id);
+        status.setNomeStatus(nome);
+        daoStatus.inserir(status);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

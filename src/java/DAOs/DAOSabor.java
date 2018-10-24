@@ -11,7 +11,7 @@ private List<Sabor> lista = new ArrayList<>();    public DAOSabor(){
     }
 
     public int autoIdSabor() {
-        Integer a = (Integer) em.createQuery("SELECT MAX(e.idSabor) FROM Sabor) e ").getSingleResult();
+        Integer a = (Integer) em.createQuery("SELECT MAX(e.idSabor) FROM Sabor e ").getSingleResult();
         if (a != null) {
             return a + 1;
         } else {
@@ -20,11 +20,11 @@ private List<Sabor> lista = new ArrayList<>();    public DAOSabor(){
     }
 
     public List<Sabor> listByNome(String nome) {
-        return em.createQuery("SELECT e FROM Sabor e WHERE e.idSabor) LIKE :nome").setParameter("nome", "%" + nome + "%").getResultList();
+        return em.createQuery("SELECT e FROM Sabor e WHERE e.nomeSabor LIKE :nome").setParameter("nome", "%" + nome + "%").getResultList();
     }
 
     public List<Sabor> listById(int id) {
-        return em.createQuery("SELECT e FROM Sabor + e WHERE e.nome= :id").setParameter("id", id).getResultList();
+        return em.createQuery("SELECT e FROM Sabor e WHERE e.id = id").setParameter("id", id).getResultList();
     }
 
     public List<Sabor> listInOrderNome() {

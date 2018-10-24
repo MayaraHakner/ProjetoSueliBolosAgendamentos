@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author Mayara Hakner
@@ -33,12 +34,12 @@ public class SaborServelet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) // prcoessaa a requisição http
+    /*protected void processRequest(HttpServletRequest request, HttpServletResponse response) // prcoessaa a requisição http
             throws ServletException, IOException { // comunica com o banco
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWrite  r()) {
             /* TODO output your page here. You may use following sample code. */
-            DAOSabor daoSabor = new DAOSabor();
+ /*DAOSabor daoSabor = new DAOSabor();
             List<Sabor> lista = daoSabor.listInOrderId();
             String tabela = "";
             for (Sabor p : lista) {
@@ -52,7 +53,74 @@ public class SaborServelet extends HttpServlet {
             
             response.sendRedirect(request.getContextPath() + "/pages/tabelaSabor.jsp");
         }
-    }
+    }*/
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) // prcoessaa a requisição http
+            throws ServletException, IOException { // comunica com o banco
+        response.setContentType("text/html;charset=UTF-8");
+
+        try (PrintWriter out = response.getWriter()) {
+            DAOSabor daoSabor = new DAOSabor();
+            Sabor sabor = new Sabor();
+            String tabela = "";
+
+            if (request.getParameter("idSabor") == "" || request.getParameter("idSabor") == null) {
+                List<Sabor> lista = daoSabor.listInOrderId();
+                 
+                for (Sabor p : lista) {
+     
+                    tabela += "<tr>"
+                            + "<td>" + p.getIdSabor() + "</td>"
+                            + "<td>" + p.getNomeSabor() + "</td>"
+                            + "<td>" + p.getStatus() + "</td>"
+                            + "</tr>";
+
+                    //System.out.println(tabela);
+                }
+            } else {
+                Integer id = Integer.valueOf(request.getParameter("idSabor"));
+                String nome = request.getParameter("nomeSabor");
+                Boolean status = Boolean.valueOf(request.getParameter("statusSabor"));
+                Boolean statusBoolean = false;
+                if (status == true) {
+                    statusBoolean = true;
+
+                }
+                // n~zo roda
+                sabor.setIdSabor(id);
+                sabor.setNomeSabor(nome);
+                sabor.setStatus(statusBoolean);
+                daoSabor.inserir(sabor);
+                List<Sabor> lista = daoSabor.listInOrderId();
+                for (Sabor p : lista) {
+                    String statusBonito = "";
+                    if (p.getStatus() ==true) {
+                                statusBonito = "sim";
+                            }else{
+                                statusBonito="não";
+                            }
+                    tabela += "<tr>"
+                            + "<td>" + p.getIdSabor() + "</td>"
+                            + "<td>" + p.getNomeSabor() + "</td>"
+                            + "<td>" + statusBonito + "</td>"
+                            + "</tr>";
+                }
+                out.print("cad depois");
+            }
+
+            request.getSession().setAttribute("resultado", tabela);
+            response.sendRedirect(request.getContextPath() + "/pages/tabelaSabor.jsp");
+        }
+       }
+    
+
+    protected void inserir(int id, String nome, Boolean statusBoolean) {
+        DAOSabor daoSabor = new DAOSabor();
+        Sabor sabor = new Sabor();
+        sabor.setIdSabor(id);
+        sabor.setNomeSabor(nome);
+        sabor.setStatus(statusBoolean);
+        daoSabor.inserir(sabor);
+  }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

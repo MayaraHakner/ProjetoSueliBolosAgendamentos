@@ -47,7 +47,8 @@ public class PedidoHasProduto implements Serializable {
         this.pedidoHasProdutoPK = pedidoHasProdutoPK;
     }
 
-    public PedidoHasProduto(int pedidoIdPedido, int produtoIdProduto) {
+
+      public PedidoHasProduto(int pedidoIdPedido, int produtoIdProduto) {
         this.pedidoHasProdutoPK = new PedidoHasProdutoPK(pedidoIdPedido, produtoIdProduto);
     }
 

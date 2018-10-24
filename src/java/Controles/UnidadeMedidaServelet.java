@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author Mayara Hakner
@@ -34,22 +35,51 @@ public class UnidadeMedidaServelet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) // prcoessaa a requisição http
             throws ServletException, IOException { // comunica com o banco
         response.setContentType("text/html;charset=UTF-8");
+        
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             DAOUnMedida daoUnMedida = new DAOUnMedida();
-            List<UnMedida> lista = daoUnMedida.listInOrderId();
+            UnMedida unMedida = new UnMedida();
             String tabela = "";
-            for (UnMedida p : lista) {
-                tabela += "<tr>"
-                        + "<td>" + p.getNomeUnidadeMedida() + "</td>"
-                        + "<td>" + p.getNomeUnidadeMedida() + "</td>"
-                        + "</tr>";
-                //System.out.println(tabela);
+            String id = request.getParameter("idUnMedida");
+            String nome = request.getParameter("nomeUnMedida");
+
+            if (request.getParameter("idUnMedida") == "" || request.getParameter("idUnMedida") == null) {
+                List<UnMedida> lista = daoUnMedida.listInOrderId();
+                for (UnMedida p : lista) {
+                    tabela += "<tr>"
+                            + "<td>" + p.getIdUnMedida()+ "</td>"
+                            + "<td>" + p.getNomeUnidadeMedida() + "</td>"
+                            + "</tr>";
+                    //System.out.println(tabela);
+                }
+            }
+            else {
+                inserir(nome, id);
+
+                     List<UnMedida> lista = daoUnMedida.listInOrderId();
+                for (UnMedida p : lista) {
+                    tabela += "<tr>"
+                            + "<td>" + p.getIdUnMedida()+ "</td>"
+                            + "<td>" + p.getNomeUnidadeMedida() + "</td>"
+                            + "</tr>";
+                    //System.out.println(tabela);
+                }               
             }
             request.getSession().setAttribute("resultado", tabela);
-            
+
             response.sendRedirect(request.getContextPath() + "/pages/tabelaUnidadeDeMedida.jsp");
+            id = "";
+            nome = "";
         }
+    }
+
+    protected void inserir(String nome, String id) {
+        DAOUnMedida daoUnMedida = new DAOUnMedida();
+        UnMedida unMedida = new UnMedida();
+        unMedida.setIdUnMedida(id);
+        unMedida.setNomeUnidadeMedida(nome);
+        daoUnMedida.inserir(unMedida);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

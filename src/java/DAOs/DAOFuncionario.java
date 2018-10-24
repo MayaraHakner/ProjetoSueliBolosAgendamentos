@@ -11,7 +11,7 @@ private List<Funcionario> lista = new ArrayList<>();    public DAOFuncionario(){
     }
 
     public int autoIdFuncionario() {
-        Integer a = (Integer) em.createQuery("SELECT MAX(e.idFuncionario) FROM Funcionario) e ").getSingleResult();
+        Integer a = (Integer) em.createQuery("SELECT MAX(e.idFuncionario) FROM Funcionario e ").getSingleResult();
         if (a != null) {
             return a + 1;
         } else {
@@ -20,11 +20,11 @@ private List<Funcionario> lista = new ArrayList<>();    public DAOFuncionario(){
     }
 
     public List<Funcionario> listByNome(String nome) {
-        return em.createQuery("SELECT e FROM Funcionario e WHERE e.idFuncionario) LIKE :nome").setParameter("nome", "%" + nome + "%").getResultList();
+        return em.createQuery("SELECT e FROM Funcionario e WHERE e.idFuncionario LIKE :nome").setParameter("nome", "%" + nome + "%").getResultList();
     }
 
     public List<Funcionario> listById(int id) {
-        return em.createQuery("SELECT e FROM Funcionario + e WHERE e.nome= :id").setParameter("id", id).getResultList();
+        return em.createQuery("SELECT e FROM Funcionario e WHERE e.nome= id").setParameter("id", id).getResultList();
     }
 
     public List<Funcionario> listInOrderNome() {

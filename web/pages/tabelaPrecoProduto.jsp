@@ -156,7 +156,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 id="titulo" class="page-header">Cliente</h1>
+                        <h1 id="titulo" class="page-header">Preço Produto</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -170,10 +170,9 @@
                                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Código </th>
-                                            <th>Nome</th>
-                                            <th>Endedereço</th>
-                                            <th>Observação</th>
+                                            <th>Produto </th>
+                                            <th>Data</th>
+                                            <th>Preço</th>
                                         </tr>
                                     </thead>
                                     <tbody>

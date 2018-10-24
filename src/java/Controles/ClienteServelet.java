@@ -33,12 +33,12 @@ public class ClienteServelet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) // prcoessaa a requisição http
+   /* protected void processRequest(HttpServletRequest request, HttpServletResponse response) // prcoessaa a requisição http
             throws ServletException, IOException { // comunica com o banco
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            DAOCliente daoCliente = new DAOCliente();
+            /*DAOCliente daoCliente = new DAOCliente();
             List<Cliente> lista = daoCliente.listInOrderId();
             String tabela = "";
             for (Cliente p : lista) {
@@ -54,8 +54,63 @@ public class ClienteServelet extends HttpServlet {
             
             response.sendRedirect(request.getContextPath() + "/pages/tabelaCliente.jsp");
         }
+    }*/
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) // prcoessaa a requisição http
+            throws ServletException, IOException { // comunica com o banco
+        response.setContentType("text/html;charset=UTF-8");
+        
+        try (PrintWriter out = response.getWriter()) {
+            DAOCliente daoCliente = new DAOCliente();
+            Cliente cliente = new Cliente();
+            String tabela = "";
+            String id = request.getParameter("idCliente");
+            String nome = request.getParameter("nomeCliente");
+            String endereco = request.getParameter("enderecoCliente");
+            String observacao = request.getParameter("observacaoCliente");
+
+            if (request.getParameter("idCliente") == "" || request.getParameter("idCliente") == null) {
+                List<Cliente> lista = daoCliente.listInOrderId();
+                for (Cliente p : lista) {
+                    tabela += "<tr>"
+                            + "<td>" + p.getCodigoCliente()+ "</td>"
+                            + "<td>" + p.getNomeCliente()+ "</td>"
+                            + "<td>" + p.getEnderecoCliente()+ "</td>"
+                            + "<td>" + p.getObservacaoCliente()+ "</td>"
+                            + "</tr>";
+                    //System.out.println(tabela);
+                }
+            }
+            else {
+                inserir(id, nome, endereco, observacao);
+                     List<Cliente> lista = daoCliente.listInOrderId();
+                for (Cliente p : lista) {
+                   tabela += "<tr>"
+                            + "<td>" + p.getCodigoCliente()+ "</td>"
+                            + "<td>" + p.getNomeCliente()+ "</td>"
+                            + "<td>" + p.getEnderecoCliente()+ "</td>"
+                            + "<td>" + p.getObservacaoCliente()+ "</td>"
+                            + "</tr>";
+                    //System.out.println(tabela);
+                }               
+            }
+            request.getSession().setAttribute("resultado", tabela);
+
+            response.sendRedirect(request.getContextPath() + "/pages/tabelaCliente.jsp");
+            id = "";
+            nome = "";
+        }
     }
 
+    protected void inserir(String id, String nome, String endereco, String obs) {
+        DAOCliente daoCliente = new DAOCliente();
+        Cliente cliente = new Cliente();
+        cliente.setCodigoCliente(id);
+        cliente.setNomeCliente(nome);
+        cliente.setEnderecoCliente(endereco);
+        cliente.setObservacaoCliente(obs);
+        daoCliente.inserir(cliente);
+
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

@@ -35,9 +35,10 @@ public class DAOGenerico<T> {
         return (T) em.find(clazz, id);
     }
 
-public T obter(String id) {
+    public T obter(String id) {
         return (T) em.find(clazz, id);
     }
+
     public T obter(Integer id) {
         return (T) em.find(clazz, id);
     }
@@ -46,4 +47,3 @@ public T obter(String id) {
         return em.createQuery("SELECT e FROM " + clazz.getSimpleName() + " e").getResultList();
     }
 }
-

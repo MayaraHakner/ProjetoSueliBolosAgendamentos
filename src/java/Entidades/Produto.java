@@ -40,7 +40,10 @@ public class Produto implements Serializable {
     @Column(name = "nome_produto")
     private String nomeProduto;
     @Column(name = "status")
-    private Short status;
+    private Boolean status;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "preco")
+    private Double preco;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
     private List<PrecoProduto> precoProdutoList;
     @JoinColumn(name = "sabor_id_sabor", referencedColumnName = "id_sabor")
@@ -75,12 +78,20 @@ public class Produto implements Serializable {
         this.nomeProduto = nomeProduto;
     }
 
-    public Short getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Short status) {
+    public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 
     public List<PrecoProduto> getPrecoProdutoList() {

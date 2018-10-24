@@ -5,6 +5,22 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.*,
+        DAOs.DAOSabor,
+        Entidades.Sabor,
+        java.text.NumberFormat,
+        java.text.SimpleDateFormat"
+        %>
+
+<%
+    Locale ptBr = new Locale("pt", "BR");
+    NumberFormat formatoDinheiro = NumberFormat.getCurrencyInstance(ptBr);
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    DAOSabor dao = new DAOSabor();
+    List<Sabor> sabor = dao.listInOrderId();
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,8 +53,8 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        
-            
+
+
     </head>
     <body>
         <div id="wrapper">
@@ -57,12 +73,12 @@
 
                 </div>  
                 <div >
-                     <h2 id="title"> Sueli Bolos Agendamentos</h2> 
+                    <h2 id="title"> Sueli Bolos Agendamentos</h2> 
                 </div>
 
                 <!-- /.navbar-header -->
 
-                
+
 
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
@@ -79,40 +95,65 @@
                                 <!-- /input-group -->
                             </li>
                             <li>
-                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Novo Pedido</a>
+                                <a href="cadastroPedido.jsp"><i class="fa fa-dashboard fa-fw"></i> Novo Pedido</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Cadastros<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="flot.html">Produto</a>
+                                        <a href="cadastroProduto.jsp">Produto</a>
                                     </li>
                                     <li>
-                                        <a href="morris.html">Funcionário</a>
+                                        <a href="cadastroFuncionario.jsp">Funcionário</a>
                                     </li>
                                     <li>
-                                        <a href="morris.html">Sabor</a>
+                                        <a href="cadastroPedido.jsp">Pedido</a>
                                     </li>
                                     <li>
-                                        <a href="morris.html">Unidade de Medida</a>
+                                        <a href="cadastroCliente.jsp">Cliente</a>
                                     </li>
+                                    <li>
+                                        <a href="cadastroUnidadeMedida.jsp">Unidade de Medida</a>
+                                    </li>
+                                    <li>
+                                        <a href="cadastroSabor.jsp">Sabor</a>
+                                    </li>
+                                    <li>
+                                        <a href="cadastroPrecoProduto.jsp">Preço Produto</a>
+                                    </li>
+                                    <li>
+                                        <a href="cadastroStatus.jsp">Status</a>
+                                    </li>
+                                   
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
                             <li>
                                 <a href="tables.html"><i class="fa fa-bar-chart-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="flot.html">Produto</a>
+                                   <li>
+                                        <a href="../Produto">Produto</a>
                                     </li>
                                     <li>
-                                        <a href="morris.html">Funcionário</a>
+                                        <a href="../Funcionario">Funcionário</a>
                                     </li>
                                     <li>
-                                        <a href="morris.html">Sabor</a>
+                                        <a href="../Pedido">Pedido</a>
                                     </li>
                                     <li>
-                                        <a href="morris.html">Unidade de Medida</a>
+                                        <a href="../Cliente">Cliente</a>
+                                    </li>
+                                    <li>
+                                        <a href="../UnidadeMedida2">Unidade de Medida</a>
+                                    </li>
+                                    <li>
+                                        <a href="tabelaSabor.jsp">Sabor</a>
+                                    </li>
+                                    <li>
+                                        <a href="../PrecoProduto">Preço Produto</a>
+                                    </li>
+                                    <li>
+                                        <a href="tabelaStatus.jsp">Status</a>
                                     </li>
                                 </ul>   
                             </li>
@@ -120,8 +161,6 @@
                             <li>
                                 <a href="#"><i class="fa fa-dashboard fa-fw"></i> Agenda Sueli Bolos</a>
                             </li>
-                            <!-- /.nav-second-level -->
-
                         </ul>
                     </div>
                     <!-- /.sidebar-collapse -->
@@ -140,7 +179,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
-                           
+
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -148,10 +187,21 @@
                                         <tr>
                                             <th>Código </th>
                                             <th>Sabor</th>
+                                            <th>Status</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        ${resultado}
+                                        <%
+                                            for (Sabor p : sabor) {
+                                        %>
+                                        <tr>
+                                            <td><%=p.getIdSabor()%></td>
+                                            <td><%=p.getNomeSabor() %></td>
+                                            <td><%=p.getStatus()%></td>
+                                            
+                                        </tr>
+                                        <%}%>
                                     </tbody>
                                 </table>
                                 <!-- /.table-responsive -->

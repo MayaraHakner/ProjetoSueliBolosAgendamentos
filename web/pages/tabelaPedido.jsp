@@ -4,7 +4,27 @@
     Author     : Mayara Hakner
 --%>
 
+<%@page import="Entidades.Funcionario"%>
+<%@page import="Entidades.Cliente"%>
+<%@page import="Entidades.Pedido"%>
+<%@page import="java.util.List"%>
+<%@page import="DAOs.DAOPedido"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.util.Locale"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    Locale ptBr = new Locale("pt", "BR");
+    NumberFormat formatoDinheiro = NumberFormat.getCurrencyInstance(ptBr);
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    DAOPedido dao = new DAOPedido();
+    List<Pedido> pedido = dao.listInOrderId();
+    Cliente cliente = new Cliente();
+    Funcionario funcionario = new Funcionario();
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -78,7 +98,7 @@
                                 </div>
                                 <!-- /input-group -->
                             </li>
-                            <li>
+<li>
                                 <a href="cadastroPedido.jsp"><i class="fa fa-dashboard fa-fw"></i> Novo Pedido</a>
                             </li>
                             <li>
@@ -144,7 +164,7 @@
 
                             <li>
                                 <a href="#"><i class="fa fa-dashboard fa-fw"></i> Agenda Sueli Bolos</a>
-                            </li><!-- /.nav-second-level -->
+                            </li>                            <!-- /.nav-second-level -->
 
                         </ul>
                     </div>
@@ -156,7 +176,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 id="titulo" class="page-header">Cliente</h1>
+                        <h1 id="titulo" class="page-header">Pedido</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -170,14 +190,42 @@
                                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Código </th>
-                                            <th>Nome</th>
-                                            <th>Endedereço</th>
+                                            <th>Código Pedido</th>
+                                            <th>Código Cliente</th>
+                                            <th>Data Pedido</th>
+                                            <th>Horário</th>
+                                            <th>Vem Buscar</th>
+                                            <th>Endereço de Entrega</th>
+                                            <th>Desconto</th>
+                                            <th>Funcionário</th>
                                             <th>Observação</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        ${resultado}
+                                      <%
+                                          String v = "";
+                                            for (Pedido p : pedido) {
+                                                if (p.getEntergaVemBuscar()) {
+                                                       v = "sim";
+                                                    }
+                                                else{
+                                                    v = "não";
+                                                }
+                                        %>
+                                        <tr>
+                                            <td><%=p.getIdPedido()%></td>
+                                            <td><%=p.getClienteCodigoCliente().getNomeCliente() %></td>
+                                            <td><%=sdf.format(p.getDataPedido()) %></td>
+                                            <td><%=p.getHorarioEntrega() %></td>
+                                            
+                                            
+                                            <td><%=v %></td>
+                                            <td><%=p.getEnderecoEntrega() %></td>
+                                            <td><%=p.getDescontoPedido() %></td>
+                                            <td><%=p.getFuncionarioIdFuncionario().getNomeFuncionario() %></td>
+                                            <td><%=p.getObservacaoPedido() %></td>
+                                        </tr>
+                                        <%}%>
                                     </tbody>
                                 </table>
                                 <!-- /.table-responsive -->

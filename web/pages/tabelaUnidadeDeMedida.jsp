@@ -79,48 +79,72 @@
                                 <!-- /input-group -->
                             </li>
                             <li>
-                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Novo Pedido</a>
+                                <a href="cadastroPedido.jsp"><i class="fa fa-dashboard fa-fw"></i> Novo Pedido</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Cadastros<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="flot.html">Produto</a>
+                                        <a href="cadastroProduto.jsp">Produto</a>
                                     </li>
                                     <li>
-                                        <a href="morris.html">Funcionário</a>
+                                        <a href="cadastroFuncionario.jsp">Funcionário</a>
                                     </li>
                                     <li>
-                                        <a href="morris.html">Sabor</a>
+                                        <a href="cadastroPedido.jsp">Pedido</a>
                                     </li>
                                     <li>
-                                        <a href="morris.html">Unidade de Medida</a>
+                                        <a href="cadastroCliente.jsp">Cliente</a>
                                     </li>
+                                    <li>
+                                        <a href="cadastroUnidadeMedida.jsp">Unidade de Medida</a>
+                                    </li>
+                                    <li>
+                                        <a href="cadastroSabor.jsp">Sabor</a>
+                                    </li>
+                                    <li>
+                                        <a href="cadastroPrecoProduto.jsp">Preço Produto</a>
+                                    </li>
+                                    <li>
+                                        <a href="cadastroStatus.jsp">Status</a>
+                                    </li>
+                                   
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
                             <li>
                                 <a href="tables.html"><i class="fa fa-bar-chart-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="flot.html">Produto</a>
+                                   <li>
+                                        <a href="../Produto">Produto</a>
                                     </li>
                                     <li>
-                                        <a href="morris.html">Funcionário</a>
+                                        <a href="../Funcionario">Funcionário</a>
                                     </li>
                                     <li>
-                                        <a href="morris.html">Sabor</a>
+                                        <a href="../Pedido">Pedido</a>
                                     </li>
                                     <li>
-                                        <a href="morris.html">Unidade de Medida</a>
+                                        <a href="../Cliente">Cliente</a>
+                                    </li>
+                                    <li>
+                                        <a href="../UnidadeMedida2">Unidade de Medida</a>
+                                    </li>
+                                    <li>
+                                        <a href="tabelaSabor.jsp">Sabor</a>
+                                    </li>
+                                    <li>
+                                        <a href="../PrecoProduto">Preço Produto</a>
+                                    </li>
+                                    <li>
+                                        <a href="tabelaStatus.jsp">Status</a>
                                     </li>
                                 </ul>   
                             </li>
 
                             <li>
                                 <a href="#"><i class="fa fa-dashboard fa-fw"></i> Agenda Sueli Bolos</a>
-                            </li>
-                            <!-- /.nav-second-level -->
+                            </li><!-- /.nav-second-level -->
 
                         </ul>
                     </div>
